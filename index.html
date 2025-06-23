@@ -273,6 +273,7 @@
   const confirmButton = confirmationPopup.querySelector("button");
   // تعطيل زر التأكيد فور الضغط
   confirmButton.disabled = true;
+  confirmationPopup.style.display = "none";
 
   emailjs.sendForm("service_r8m1iwm", "template_w9zxaku", form)
     .then(function() {
@@ -281,7 +282,7 @@
 
       setTimeout(() => {
         document.getElementById("popup").style.display = "none";
-      }, 4000);
+      }, 8000);
 
       form.reset();
       // إعادة تفعيل زر التأكيد بعد نجاح الإرسال
