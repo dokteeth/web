@@ -270,18 +270,29 @@
     confirmationPopup.style.display = "block";
   });
   function confirmSend() {
-    emailjs.sendForm("service_r8m1iwm", "template_w9zxaku", form)
-      .then(function() {
-        confirmationPopup.style.display = "none";
-        document.getElementById("popup").style.display = "block";
-        setTimeout(() => {
-          document.getElementById("popup").style.display = "none";
-        }, 9000);
-        form.reset();
-      }, function(error) {
-        alert("حدث خطأ. حاول مرة أخرى.");
-        console.error(error);
-      });
+  const confirmButton = confirmationPopup.querySelector("button");
+  // تعطيل زر التأكيد فور الضغط
+  confirmButton.disabled = true;
+
+  emailjs.sendForm("service_r8m1iwm", "template_w9zxaku", form)
+    .then(function() {
+      confirmationPopup.style.display = "none";
+      document.getElementById("popup").style.display = "block";
+
+      setTimeout(() => {
+        document.getElementById("popup").style.display = "none";
+      }, 4000);
+
+      form.reset();
+      // إعادة تفعيل زر التأكيد بعد نجاح الإرسال
+      confirmButton.disabled = false;
+    })
+    .catch(function(error) {
+      alert("حدث خطأ. حاول مرة أخرى.");
+      console.error(error);
+      // إعادة تفعيل زر التأكيد عند الخطأ
+      confirmButton.disabled = false;
+    });
   }
   function cancelSend() {
     confirmationPopup.style.display = "none";
