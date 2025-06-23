@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>د. علي الفلاحي - الحجز المجاني</title>
+  <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: #0A3D62;
+      font-family: 'Cairo', sans-serif;
+      color: #333333;
+      margin: 0;
+      padding: 0;
+    }
+    .hero {
+      background-color: #0A3D62;
+      color: white;
+      text-align: center;
+      padding: 60px 20px;
+    }
+    .hero h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+    .cta-btn {
+      background-color: #F4C542;
+      color: #0A3D62;
+      font-weight: bold;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .cta-btn:hover { background-color: #e6b800; }
+    .social-container {
+      margin-top: 40px;
+      padding: 15px 10px;
+      border-radius: 20px;
+      display: inline-flex;
+      gap: 18px;
+    }
+    .social-container img {
+      width: 28px;
+      height: 28px;
+    }
+    .location {
+      margin-top: 40px;
+      text-align: center;
+    }
+    .location p {
+      color: #ffffff;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .location img { width: 42px; }
+    .section, .doctor-profile {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
+      padding: 25px 18px;
+      max-width: 760px;
+      line-height: 1.8;
+    }
+    .section h2, .doctor-name {
+      color: #F4C542;
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .section p, .section li, .doctor-title, .doctor-text, .doctor-location, .doctor-contact {
+      font-size: 1.1rem;
+      color: white;
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .doctor-image-container {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+    .doctor-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    form label {
+      color: #F4C542;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: #F4C542;
+      color: #0A3D62;
+      border: none;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .popup, .confirmation-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      right: 50%;
+      transform: translate(50%, -50%);
+      background: #F4C542;
+      color: #0A3D62;
+      padding: 25px 20px;
+      border-radius: 12px;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      z-index: 1000;
+      text-align: center;
+    }
+    .confirmation-popup button {
+      margin: 10px;
+      background: #0A3D62;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    footer {
+      background-color: #0A3D62;
+      color: #F4C542;
+      text-align: center;
+      padding: 25px 15px;
+      font-size: 1.1rem;
+    }
+    ul {
+      list-style-type: disc;
+      padding-right: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero fade-in">
+  <h1>رعاية طبية متميزة لأن أسنانك تهمنا<br>نمنحك فرصة علاج مجاني تحت إشراف مُختصين</h1>
+  <a href="#booking" class="cta-btn">احجز موعدك المجاني </a>
+  <div class="social-container">
+    <a href="http://wa.me/9647778528881" target="_blank"><img src="https://img.icons8.com/ios-filled/50/0074b7/whatsapp.png" alt="WhatsApp" /></a>
+    <a href="https://www.instagram.com/dokteeth?igsh=dHQ5dG9xeDR5ZGJr" target="_blank"><img src="https://img.icons8.com/ios-filled/50/0074b7/instagram-new.png" alt="Instagram" /></a>
+    <a href="https://www.facebook.com/share/16NMrSGoFf/?mibextid=wwXIfr" target="_blank"><img src="https://img.icons8.com/ios-filled/50/0074b7/facebook-new.png" alt="Facebook" /></a>
+  </div>
+  <div class="location">
+    <p>📍 الموقع</p>
+    <a href="https://maps.app.goo.gl/FyWzZcS7jxWwci2z7?g_st=com.google.maps.preview.copy" target="_blank">
+      <img src="https://img.icons8.com/ios-filled/50/0074b7/marker.png" alt="Map" />
+    </a>
+  </div>
+</div>
+
+<section class="section fade-in" id="about">
+  <h2>رعاية مجانية ومحترفة لأسنانك</h2>
+  <ul>
+    <li>هل تبحث عن علاج أسنان موثوق وبدون تكلفة؟</li>
+    <li>نقدّم لك خدمة مجانية بإشراف مختصين في طب الأسنان.</li>
+    <li>بيئة مريحة وآمنة تضع راحتك أولاً.</li>
+    <li>نحرص على أن تستعيد ابتسامتك بثقة وجودة عالية في كل خطوة.</li>
+  </ul>
+</section>
+
+<section class="doctor-profile fade-in" id="doctor">
+  <div class="doctor-image-container">
+    <img src="https://i.ibb.co/cHjy2Bp/IMG-4427.jpg" alt="د. علي الفلاحي" class="doctor-img">
+  </div>
+  <h2 class="doctor-name">د. علي الفلاحي</h2>
+  <p class="doctor-title">طبيب أسنان - تدريب عالي تحت إشراف مُتخصصين</p>
+  <p class="doctor-text">أنا د. علي الفلاحي، طبيب أسنان أؤمن بأن الرعاية الجيدة تبدأ بالاهتمام الحقيقي بالمريض...</p>
+  <p class="doctor-text">هدفي أن تشعر بأنك في مكان تفهم فيه حالتك، وتُعالج باحترام واطمئنان، دون تعقيد.</p>
+  <p class="doctor-location"><strong>📍 الموقع:</strong> كربلاء المقدسة - حي النقيب - شارع النهر</p>
+  <p class="doctor-contact"><strong>للتواصل الفوري مع الدكتور:</strong> 07778528881</p>
+</section>
+
+<section class="section fade-in" id="steps">
+  <h2>كيف نُجري العلاج؟</h2>
+  <ul>
+    <li><strong>التقييم الأولي:</strong> نبدأ بفحص شامل للفم والأسنان واللثة...</li>
+    <li><strong>تنفيذ العلاجات الأساسية:</strong> تشمل: حشوات، قلع، تنظيف...</li>
+    <li><strong>إشراف ومتابعة:</strong> نتابع حالتك لضمان نتائج ممتازة وآمنة.</li>
+  </ul>
+</section>
+
+<section class="section fade-in" id="booking">
+  <h2>إحجز موعدك</h2>
+  <form id="booking-form">
+    <label>الاسم الثلاثي:</label>
+    <input type="text" name="user_name" required>
+    <label>العمر:</label>
+    <input type="number" name="user_age">
+    <label>رقم الهاتف:</label>
+    <input type="tel" name="user_phone" required>
+    <label>تاريخ الحجز:</label>
+    <input type="text" name="booking_date" placeholder="الشهر/اليوم">
+    <label>الوقت:</label>
+    <select name="booking_time">
+      <option value="">اختر وقت الموعد</option>
+      <option>8:30 - 9:30 صباحاً</option>
+      <option>9:30 - 10:30 صباحاً</option>
+      <option>10:30 - 11:30 صباحاً</option>
+      <option>11:30 - 12:30 ظهراً</option>
+    </select>
+    <label>ما مشكلتك؟</label>
+    <textarea name="user_problem" rows="4" required></textarea>
+    <button type="submit">إرسال الحجز</button>
+  </form>
+</section>
+
+<footer>
+  <p>جميع الحقوق محفوظة © د. علي الفلاحي</p>
+</footer>
+
+<div id="confirmation-popup" class="confirmation-popup">
+  <p>هل أنت متأكد من إرسال الحجز؟</p>
+  <button onclick="confirmSend()">تأكيد</button>
+  <button onclick="cancelSend()">إلغاء</button>
+</div>
+
+<div id="popup" class="popup">شكراً لثقتك، سنحرص على أن نكون في محلها.</div>
+
+<script>
+  emailjs.init("24CwhSffG61nQM8qj");
+  const form = document.getElementById("booking-form");
+  const confirmationPopup = document.getElementById("confirmation-popup");
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    confirmationPopup.style.display = "block";
+  });
+  function confirmSend() {
+    emailjs.sendForm("service_r8m1iwm", "template_w9zxaku", form)
+      .then(function() {
+        confirmationPopup.style.display = "none";
+        document.getElementById("popup").style.display = "block";
+        setTimeout(() => {
+          document.getElementById("popup").style.display = "none";
+        }, 4000);
+        form.reset();
+      }, function(error) {
+        alert("حدث خطأ. حاول مرة أخرى.");
+        console.error(error);
+      });
+  }
+  function cancelSend() {
+    confirmationPopup.style.display = "none";
+  }
+
+  const faders = document.querySelectorAll('.fade-in');
+  const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
+  const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add("appear");
+      observer.unobserve(entry.target);
+    });
+  }, appearOptions);
+  faders.forEach(fader => appearOnScroll.observe(fader));
+</script>
+
+</body>
+</html>
