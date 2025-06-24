@@ -51,6 +51,15 @@
       display: inline-flex;
       gap: 18px;
     }
+
+    .fade-out {
+      animation: fadeOut 0.8s forwards;
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0; transform: scale(0.9); }
+    }
     .social-container img {
       width: 28px;
       height: 28px;
@@ -273,8 +282,16 @@
   const confirmButton = confirmationPopup.querySelector("button");
   // تعطيل زر التأكيد فور الضغط
   confirmButton.disabled = true;
-  confirmationPopup.style.display = "none";
+  
+  // تطبيق تأثير fade-out على النافذة
+  confirmationPopup.classList.add("fade-out");
 
+  // بعد انتهاء تأثير fade-out، أخفِ النافذة وأرسل النموذج
+  setTimeout(() => {
+    confirmationPopup.style.display = "none";
+    confirmationPopup.classList.remove("fade-out");
+
+  if (navigator.vibrate) navigator.vibrate(200);
   emailjs.sendForm("service_r8m1iwm", "template_w9zxaku", form)
     .then(function() {
       confirmationPopup.style.display = "none";
