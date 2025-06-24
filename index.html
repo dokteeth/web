@@ -51,11 +51,9 @@
       display: inline-flex;
       gap: 18px;
     }
-
     .fade-out {
       animation: fadeOut 0.8s forwards;
     }
-
     @keyframes fadeOut {
       from { opacity: 1; transform: scale(1); }
       to { opacity: 0; transform: scale(0.9); }
@@ -274,44 +272,43 @@
   emailjs.init("24CwhSffG61nQM8qj");
   const form = document.getElementById("booking-form");
   const confirmationPopup = document.getElementById("confirmation-popup");
+
   form.addEventListener("submit", function(e) {
     e.preventDefault();
     confirmationPopup.style.display = "block";
   });
+
   function confirmSend() {
-  const confirmButton = confirmationPopup.querySelector("button");
-  // تعطيل زر التأكيد فور الضغط
-  confirmButton.disabled = true;
-  
-  // تطبيق تأثير fade-out على النافذة
-  confirmationPopup.classList.add("fade-out");
+    const confirmButton = confirmationPopup.querySelector("button");
+    confirmButton.disabled = true;
+    confirmationPopup.classList.add("fade-out");
 
-  // بعد انتهاء تأثير fade-out، أخفِ النافذة وأرسل النموذج
-  setTimeout(() => {
-    confirmationPopup.style.display = "none";
-    confirmationPopup.classList.remove("fade-out");
-
-  if (navigator.vibrate) navigator.vibrate(200);
-  emailjs.sendForm("service_r8m1iwm", "template_w9zxaku", form)
-    .then(function() {
+    setTimeout(() => {
       confirmationPopup.style.display = "none";
-      document.getElementById("popup").style.display = "block";
+      confirmationPopup.classList.remove("fade-out");
 
-      setTimeout(() => {
-        document.getElementById("popup").style.display = "none";
-      }, 8000);
+      if (navigator.vibrate) {
+        navigator.vibrate(200);
+      }
 
-      form.reset();
-      // إعادة تفعيل زر التأكيد بعد نجاح الإرسال
-      confirmButton.disabled = false;
-    })
-    .catch(function(error) {
-      alert("حدث خطأ. حاول مرة أخرى.");
-      console.error(error);
-      // إعادة تفعيل زر التأكيد عند الخطأ
-      confirmButton.disabled = false;
-    });
+      emailjs.sendForm("service_r8m1iwm", "template_w9zxaku", form)
+        .then(function() {
+          confirmationPopup.style.display = "none";
+          document.getElementById("popup").style.display = "block";
+          setTimeout(() => {
+            document.getElementById("popup").style.display = "none";
+          }, 8000);
+          form.reset();
+          confirmButton.disabled = false;
+        })
+        .catch(function(error) {
+          alert("حدث خطأ. حاول مرة أخرى.");
+          console.error(error);
+          confirmButton.disabled = false;
+        });
+    }, 800);
   }
+
   function cancelSend() {
     confirmationPopup.style.display = "none";
   }
