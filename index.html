@@ -296,35 +296,37 @@
   });
 
   function confirmSend() {
-    const confirmButton = confirmationPopup.querySelector("button");
-    confirmButton.disabled = true;
-    confirmationPopup.classList.add("fade-out");
+  const confirmButton = confirmationPopup.querySelector("button");
+  confirmButton.disabled = true;
+  confirmationPopup.classList.add("fade-out");
 
-    setTimeout(() => {
+  // تنفيذ الاهتزاز مباشرة بعد الضغط
+  if (navigator.vibrate && /android/i.test(navigator.userAgent)) {
+    navigator.vibrate(200); // يهتز فقط على أجهزة أندرويد
+  } else {
+    visualShake(confirmButton); // يهتز بصرياً فقط على iPhone أو الأجهزة غير الداعمة
+  }
+
+  // إرسال النموذج أثناء الـ fade-out
+  emailjs.sendForm("service_r8m1iwm", "template_w9zxaku", form)
+    .then(function() {
+      // بعد نجاح الإرسال فقط، يتم إخفاء النافذة وإظهار الشكر
       confirmationPopup.style.display = "none";
       confirmationPopup.classList.remove("fade-out");
 
-    if (navigator.vibrate && /android/i.test(navigator.userAgent)) {
-      navigator.vibrate(200); // يهتز فقط على أجهزة أندرويد
-    } else {
-      visualShake(confirmButton); // يهتز بصرياً فقط على iPhone أو الأجهزة غير الداعمة
-    }
-
-      emailjs.sendForm("service_r8m1iwm", "template_w9zxaku", form)
-        .then(function() {
-          confirmationPopup.style.display = "none";
-          document.getElementById("popup").style.display = "block";
-          setTimeout(() => {
-            document.getElementById("popup").style.display = "none";
-          }, 8000);
-          form.reset();
-          confirmButton.disabled = false;
-        })
-        .catch(function(error) {
-          alert("حدث خطأ. حاول مرة أخرى.");
-          console.error(error);
-          confirmButton.disabled = false;
-        });
+      document.getElementById("popup").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("popup").style.display = "none";
+      }, 8000);
+      form.reset();
+      confirmButton.disabled = false;
+    })
+    .catch(function(error) {
+      alert("حدث خطأ. حاول مرة أخرى.");
+      console.error(error);
+      confirmationPopup.classList.remove("fade-out");
+      confirmButton.disabled = false;
+    });
     }, 4000);
   }
 
