@@ -58,6 +58,17 @@
       from { opacity: 1; filter: blur(0px); }
       to { opacity: 0; filter: blur(2px); }
     }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      50% { transform: translateX(5px); }
+      75% { transform: translateX(-5px); }
+      100% { transform: translateX(0); }
+    }
+
+    .shake {
+      animation: shake 0.4s ease-in-out;
+    }
     .social-container img {
       width: 28px;
       height: 28px;
@@ -273,6 +284,12 @@
   const form = document.getElementById("booking-form");
   const confirmationPopup = document.getElementById("confirmation-popup");
 
+  function visualShake(element) {
+  element.classList.add("shake");
+  setTimeout(() => {
+    element.classList.remove("shake");
+  }, 400);
+}
   form.addEventListener("submit", function(e) {
     e.preventDefault();
     confirmationPopup.style.display = "block";
@@ -287,9 +304,11 @@
       confirmationPopup.style.display = "none";
       confirmationPopup.classList.remove("fade-out");
 
-      if (navigator.vibrate) {
-        navigator.vibrate(200);
-      }
+    if (navigator.vibrate && /android/i.test(navigator.userAgent)) {
+      navigator.vibrate(200); // يهتز فقط على أجهزة أندرويد
+    } else {
+      visualShake(confirmButton); // يهتز بصرياً فقط على iPhone أو الأجهزة غير الداعمة
+    }
 
       emailjs.sendForm("service_r8m1iwm", "template_w9zxaku", form)
         .then(function() {
