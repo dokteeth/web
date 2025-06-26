@@ -334,22 +334,21 @@
     .then(function() {
       // بعد نجاح الإرسال فقط، يتم إخفاء النافذة وإظهار الشكر
       confirmationPopup.style.display = "none";
-      confirmationPopup.classList.remove("fade-out");
+confirmationPopup.classList.remove("fade-out");
 
-      const popup = document.getElementById("popup");
+const popup = document.getElementById("popup");
+popup.style.display = "block"; // تأكد من عرض العنصر أولاً
 popup.classList.add("show");
-setTimeout(() => {
-  popup.classList.add("show");
-}, 8000); // تأخير صغير لتفعيل التحول بعد العرض
 
-      setTimeout(() => {
+setTimeout(() => {
   popup.classList.remove("show");
   setTimeout(() => {
     popup.style.display = "none";
   }, 500); // مدة نفس transition
 }, 8000);
-      form.reset();
-      confirmButton.disabled = false;
+
+form.reset();
+confirmButton.disabled = false;
     })
     .catch(function(error) {
       alert("حدث خطأ. حاول مرة أخرى.");
