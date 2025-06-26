@@ -110,6 +110,17 @@
       transform: translateY(30px);
       transition: opacity 0.8s ease-out, transform 0.8s ease-out;
     }
+    /* تأثير الـ fade-in لنافذة الشكر */
+#popup {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#popup.show {
+  opacity: 1;
+  transform: translateY(0);
+}
     .fade-in.appear {
       opacity: 1;
       transform: translateY(0);
@@ -314,10 +325,18 @@
       confirmationPopup.style.display = "none";
       confirmationPopup.classList.remove("fade-out");
 
-      document.getElementById("popup").style.display = "block";
-      setTimeout(() => {
-        document.getElementById("popup").style.display = "none";
-      }, 8000);
+      const popup = document.getElementById("popup");
+popup.style.display = "block";
+setTimeout(() => {
+  popup.classList.add("show");
+}, 10); // تأخير صغير لتفعيل التحول بعد العرض
+
+setTimeout(() => {
+  popup.classList.remove("show");
+  setTimeout(() => {
+    popup.style.display = "none";
+  }, 500); // مدة نفس transition
+}, 8000);
       form.reset();
       confirmButton.disabled = false;
     })
