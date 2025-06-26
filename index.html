@@ -340,7 +340,14 @@
 popup.classList.add("show");
 setTimeout(() => {
   popup.classList.add("show");
-}, 10); // تأخير صغير لتفعيل التحول بعد العرض
+}, 8000); // تأخير صغير لتفعيل التحول بعد العرض
+
+      setTimeout(() => {
+  popup.classList.remove("show");
+  setTimeout(() => {
+    popup.style.display = "none";
+  }, 500); // مدة نفس transition
+}, 8000);
       form.reset();
       confirmButton.disabled = false;
     })
