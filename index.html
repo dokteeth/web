@@ -28,8 +28,19 @@
       margin-bottom: 30px;
     }
     .highlight {
-      color: #F4C542;
-    }
+  animation: goldPulse 2.8s infinite alternate;
+}
+
+@keyframes goldPulse {
+  from {
+    color: #F4C542;
+    text-shadow: 0 0 4px rgba(244, 197, 66, 0.3);
+  }
+  to {
+    color: #FFD700;
+    text-shadow: 0 0 10px rgba(244, 197, 66, 0.5);
+  }
+}
     .cta-btn {
       background-color: #F4C542;
       color: #0A3D62;
@@ -283,7 +294,7 @@ textarea::placeholder {
 </div>
 
 <section class="section fade-in" id="about">
-  <h2>رعاية مجانية ومحترفة لأسنانك</h2>
+  <h2 class="highlight">رعاية مجانية ومحترفة لأسنانك</h2>
   <ul>
     <li>هل تبحث عن علاج أسنان موثوق وبدون تكلفة؟</li>
     <li>نقدّم لك خدمة مجانية بإشراف مختصين في طب الأسنان.</li>
@@ -296,7 +307,7 @@ textarea::placeholder {
   <div class="doctor-image-container">
     <img src="https://i.ibb.co/cHjy2Bp/IMG-4427.jpg" alt="د. علي الفلاحي" class="doctor-img">
   </div>
-  <h2 class="doctor-name">د. علي الفلاحي</h2>
+  <h2 class="doctor-name highlight">د. علي الفلاحي</h2>
   <p class="doctor-title">طبيب أسنان - تدريب عالي تحت إشراف مُتخصصين</p>
   <p class="doctor-text">أناد. علي الفلاحي، طبيب أسنان أؤمن بأن الرعاية الجيدة تبدأ بالاهتمام الحقيقي بالمريض. أعمل ضمن فريق طبي في عيادات الصفوة التخصصية، بإشراف مباشر من أطباء ذوي خبرة، وأسعى لتقديم علاج دقيق وآمن يساعدك في الحفاظ على صحة فمك وابتسامتك بثقة وراحة....</p>
   <p class="doctor-text">هدفي أن تشعر بأنك في مكان تفهم فيه حالتك، وتُعالج باحترام واطمئنان، دون تعقيد.</p>
@@ -305,7 +316,7 @@ textarea::placeholder {
 </section>
 
 <section class="section fade-in" id="steps">
-  <h2>كيف نُجري العلاج؟</h2>
+  <h2 class="highlight">كيف نُجري العلاج؟</h2>
   <ul>
     <li><strong>التقييم الأولي:</strong> نبدأ بفحص شامل للفم والأسنان واللثة...</li>
     <li><strong>تنفيذ العلاجات الأساسية:</strong> تشمل: حشوات، قلع، تنظيف...</li>
@@ -314,7 +325,7 @@ textarea::placeholder {
 </section>
 
 <section class="section fade-in" id="booking">
-  <h2>إحجز موعدك</h2>
+  <h2 class="highlight">إحجز موعدك</h2>
   <form id="booking-form">
     <label>الاسم الثلاثي:</label>
     <input type="text" name="user_name" required>
