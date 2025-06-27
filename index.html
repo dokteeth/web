@@ -273,6 +273,28 @@ textarea::placeholder {
         width: 100%;
       }
     }
+    .cta-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.cta-btn::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+  transform: skewX(-20deg);
+  animation: shimmer 2.5s infinite;
+  z-index: 2;
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 120%; }
+}
   </style>
 </head>
 <body>
@@ -345,7 +367,7 @@ textarea::placeholder {
     </select>
     <label>ما مشكلتك؟</label>
     <textarea name="user_problem" rows="4" required></textarea>
-    <button type="submit">إرسال الحجز</button>
+    <button type="submit" class="cta-btn">إرسال الحجز</button>
   </form>
 </section>
 
