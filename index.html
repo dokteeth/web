@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>د. علي الفلاحي - الحجز المجاني</title>
   <script src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
@@ -65,7 +65,6 @@
       75% { transform: translateX(-5px); }
       100% { transform: translateX(0); }
     }
-
     .shake {
       animation: shake 0.4s ease-in-out;
     }
@@ -92,7 +91,7 @@
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
       margin: 20px auto;
       padding: 25px 20px;
-      max-width:600px;
+      max-width: 600px;
       line-height: 1.8;
     }
     .section h2, .doctor-name {
@@ -115,19 +114,22 @@
       top: 50%;
       right: 50%;
       transform: translate(50%, -50%);
-      background: #F4C542;
-      color: #0A3D62;
-      padding: 20px 25px;
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 25px 20px;
+      border-radius: 12px;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
       font-weight: bold;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      font-size: 1.2rem;
+      text-align: center;
+      color: #F4C542;
       z-index: 1000;
-
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
-
     #popup.show {
       opacity: 1;
       pointer-events: auto;
@@ -150,24 +152,45 @@
       object-fit: cover;
       display: block;
     }
+
+    /* تصفيف زجاجي موحد للفورم فقط */
     form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-    }
-    form label {
-      color: #F4C542;
-      font-weight: bold;
-    }
-    input, textarea, select {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-      font-size: 16px;
-    }
+  padding: 35px 30px; /* زيادة التباعد الداخلي */
+  border-radius: 12px;
+  box-shadow: none;
+  background: none
+  backdrop-filter: none
+  -webkit-backdrop-filter: none;
+  border: none;
+  max-width: 500px;
+  margin: 20px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* تباعد أكبر بين الحقول */
+  font-family: 'Cairo', sans-serif;
+  color: white;
+}
+
+form label {
+  color: #F4C542;
+  font-weight: bold;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 14px 16px; /* توسيع الحقول من الداخل */
+  border-radius: 6px;
+  border: none; /* إزالة الحدود لمظهر أنظف */
+  background-color: rgba(255, 255, 255, 0.2); /* خلفية شبه شفافة */
+  box-sizing: border-box;
+  font-size: 16px; /* تكبير النص داخل الحقول */
+  color: white;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #ddd; /* لون رمادي للنص الوصفي */
+}
     button {
       background-color: #F4C542;
       color: #0A3D62;
@@ -184,14 +207,18 @@
       top: 50%;
       right: 50%;
       transform: translate(50%, -50%);
-      background: #F4C542;
-      color: #0A3D62;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       padding: 25px 20px;
       border-radius: 12px;
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
       font-weight: bold;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      z-index: 1000;
+      font-size: 1.2rem;
       text-align: center;
+      color: #F4C542;
+      z-index: 1000;
     }
     .confirmation-popup button {
       margin: 10px;
@@ -201,6 +228,8 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+      font-weight: bold;
     }
     footer {
       background-color: #0A3D62;
@@ -212,6 +241,26 @@
     ul {
       list-style-type: disc;
       padding-right: 20px;
+    }
+
+    /* تحسين الاستجابة */
+    @media screen and (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
+      h2 {
+        font-size: 22px;
+      }
+      form {
+        padding: 20px;
+        max-width: 100%;
+      }
+      input, textarea {
+        font-size: 15px;
+      }
+      button {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -239,7 +288,7 @@
     <li>هل تبحث عن علاج أسنان موثوق وبدون تكلفة؟</li>
     <li>نقدّم لك خدمة مجانية بإشراف مختصين في طب الأسنان.</li>
     <li>بيئة مريحة وآمنة تضع راحتك أولاً.</li>
-    <li>نحرص على أن تستعيد ابتسامتك بثقة وجودة عالية في كل خطوة.</li>
+        <li>نحرص على أن تستعيد ابتسامتك بثقة وجودة عالية في كل خطوة.</li>
   </ul>
 </section>
 
@@ -342,15 +391,13 @@
       visualShake(confirmButton);
     }
 
-    // أولاً نجرّب الحساب الرئيسي
     emailjs.sendForm(accountMain.serviceID, accountMain.templateID, form)
       .then(function() {
         showSuccessPopup();
       })
       .catch(function(error) {
-        console.warn("⚠️ فشل الإرسال بالحساب الرئيسي. تجربة الاحتياطي...", error);
+        console.warn("⚠️ فشل الإرسال بالحساب الرئيسي. تجربة الحساب الاحتياطي...", error);
 
-        // تجربة الحساب الاحتياطي
         emailjs.init(accountBackup.userID);
         emailjs.sendForm(accountBackup.serviceID, accountBackup.templateID, form)
           .then(function() {
