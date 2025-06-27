@@ -302,60 +302,87 @@
 <div id="popup" class="popup">شكراً لثقتك، نحرص على أن تكون في محلها.</div>
 
 <script>
-  emailjs.init("24CwhSffG61nQM8qj");
   const form = document.getElementById("booking-form");
   const confirmationPopup = document.getElementById("confirmation-popup");
 
+  const accountMain = {
+    userID: "24CwhSffG61nQM8qj",
+    serviceID: "service_r8m1iwm",
+    templateID: "template_w9zxaku"
+  };
+
+  const accountBackup = {
+    userID: "Mc6K9lXShr83BZbe6",
+    serviceID: "service_aiytxtq",
+    templateID: "template_uy7uk78"
+  };
+
+  emailjs.init(accountMain.userID);
+
   function visualShake(element) {
-  element.classList.add("shake");
-  setTimeout(() => {
-    element.classList.remove("shake");
-  }, 400);
-}
+    element.classList.add("shake");
+    setTimeout(() => {
+      element.classList.remove("shake");
+    }, 400);
+  }
+
   form.addEventListener("submit", function(e) {
     e.preventDefault();
     confirmationPopup.style.display = "block";
   });
 
   function confirmSend() {
-  const confirmButton = confirmationPopup.querySelector("button");
-  confirmButton.disabled = true;
-  confirmationPopup.classList.add("fade-out");
+    const confirmButton = confirmationPopup.querySelector("button");
+    confirmButton.disabled = true;
+    confirmationPopup.classList.add("fade-out");
 
-  // تنفيذ الاهتزاز مباشرة بعد الضغط
-  if (navigator.vibrate && /android/i.test(navigator.userAgent)) {
-    navigator.vibrate(200); // يهتز فقط على أجهزة أندرويد
-  } else {
-    visualShake(confirmButton); // يهتز بصرياً فقط على iPhone أو الأجهزة غير الداعمة
+    if (navigator.vibrate && /android/i.test(navigator.userAgent)) {
+      navigator.vibrate(200);
+    } else {
+      visualShake(confirmButton);
+    }
+
+    // أولاً نجرّب الحساب الرئيسي
+    emailjs.sendForm(accountMain.serviceID, accountMain.templateID, form)
+      .then(function() {
+        showSuccessPopup();
+      })
+      .catch(function(error) {
+        console.warn("⚠️ فشل الإرسال بالحساب الرئيسي. تجربة الاحتياطي...", error);
+
+        // تجربة الحساب الاحتياطي
+        emailjs.init(accountBackup.userID);
+        emailjs.sendForm(accountBackup.serviceID, accountBackup.templateID, form)
+          .then(function() {
+            showSuccessPopup();
+          })
+          .catch(function(finalError) {
+            alert("❌ حدث خطأ في كلا الحسابين. حاول مرة أخرى.");
+            console.error(finalError);
+            confirmationPopup.classList.remove("fade-out");
+            confirmButton.disabled = false;
+          });
+      });
   }
 
-  // إرسال النموذج أثناء الـ fade-out
-  emailjs.sendForm("service_r8m1iwm", "template_w9zxaku", form)
-    .then(function() {
-      // بعد نجاح الإرسال فقط، يتم إخفاء النافذة وإظهار الشكر
-      confirmationPopup.style.display = "none";
-confirmationPopup.classList.remove("fade-out");
+  function showSuccessPopup() {
+    confirmationPopup.style.display = "none";
+    confirmationPopup.classList.remove("fade-out");
 
-const popup = document.getElementById("popup");
-popup.style.display = "block"; // تأكد من عرض العنصر أولاً
-popup.classList.add("show");
+    const popup = document.getElementById("popup");
+    popup.style.display = "block";
+    popup.classList.add("show");
 
-setTimeout(() => {
-  popup.classList.remove("show");
-  setTimeout(() => {
-    popup.style.display = "none";
-  }, 500); // مدة نفس transition
-}, 8000);
+    setTimeout(() => {
+      popup.classList.remove("show");
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 500);
+    }, 8000);
 
-form.reset();
-confirmButton.disabled = false;
-    })
-    .catch(function(error) {
-      alert("حدث خطأ. حاول مرة أخرى.");
-      console.error(error);
-      confirmationPopup.classList.remove("fade-out");
-      confirmButton.disabled = false;
-    });
+    form.reset();
+    const confirmButton = confirmationPopup.querySelector("button");
+    confirmButton.disabled = false;
   }
 
   function cancelSend() {
