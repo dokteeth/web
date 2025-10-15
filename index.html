@@ -200,7 +200,12 @@ input, textarea, select {
   font-size: 16px; /* تكبير النص داخل الحقول */
   color: white;
 }
-
+/* توحيد عرض حقل التاريخ مع باقي الحقول */
+input[type="date"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+}
 input::placeholder,
 textarea::placeholder {
   color: #ddd; /* لون رمادي للنص الوصفي */
